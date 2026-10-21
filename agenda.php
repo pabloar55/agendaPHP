@@ -10,11 +10,13 @@
 <body>
     <?php
     $agenda = [];
-    
+
     if (isset($_POST["enviar"])) {
-        if (exists)
-        echo "el nombre es: " . $_POST["nombre"];
-        echo "el telefono es: " . $_POST["telefono"];
+            $agenda[$_POST["nombre"]] = $_POST["telefono"];
+        echo "Datos: ";
+        foreach($agenda as $nombre => $cantidad){
+            echo $nombre . " " . $cantidad;
+        }
     } 
     ?>
     <main>
