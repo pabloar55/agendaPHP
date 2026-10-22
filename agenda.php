@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,15 +10,19 @@
 
 <body>
     <?php
-    $agenda = [];
+
+    if (!isset($_SESSION["agenda"])) {
+        $_SESSION["agenda"] = [];
+        echo "sesion iniciada";
+    }
 
     if (isset($_POST["enviar"])) {
-            $agenda[$_POST["nombre"]] = $_POST["telefono"];
+        $_SESSION["agenda"][$_POST["nombre"]] = $_POST["telefono"];
         echo "Datos: ";
-        foreach($agenda as $nombre => $cantidad){
+        foreach ($_SESSION["agenda"] as $nombre => $cantidad) {
             echo $nombre . " " . $cantidad;
         }
-    } 
+    }
     ?>
     <main>
         <h1>Agenda</h1>
