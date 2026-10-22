@@ -17,10 +17,5 @@ h1{
     gap: 10px;
 }
 #fieldsetNuevoContacto > div > label{
-    min-width: 60px;
-}
-
-#enviar{
-    align-self: flex-start;
-    min-width: 230px;
+    min-width: 70px;
 }

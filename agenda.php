@@ -15,7 +15,9 @@
         <fieldset>
             <legend>Datos Agenda</legend>
             <?php
-
+            if (isset($_POST["vaciar"])) {
+                $_SESSION["agenda"] = [];
+            }
             if (!isset($_SESSION["agenda"])) {
                 $_SESSION["agenda"] = [];
                 echo "sesion iniciada";
@@ -38,14 +40,23 @@
             <fieldset id="fieldsetNuevoContacto">
                 <legend>Nuevo Contacto</legend>
                 <div>
-                <label for="nombreID">Nombre:</label>
-                <input type="text" id="nombreID" name="nombre">
+                    <label for="nombreID">Nombre:</label>
+                    <input type="text" id="nombreID" name="nombre">
                 </div>
                 <div>
-                <label for="telID">Teléfono:</label>
-                <input type="tel" name="telefono" id="telID">
+                    <label for="telID">Teléfono:</label>
+                    <input type="tel" name="telefono" id="telID">
                 </div>
-                <input type="submit" value="Enviar" name="enviar" id="enviar">
+                <div>
+                    <input type="submit" value="Guardar" name="enviar" id="enviar">
+                    <button type="reset">Limpiar</button>
+                </div>
+            </fieldset>
+        </form>
+        <form action="" method="post">
+            <fieldset>
+                <legend>Vaciar Agenda</legend>
+                <input type="submit" value="Vaciar" name="vaciar">
             </fieldset>
         </form>
     </main>
