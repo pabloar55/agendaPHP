@@ -1,0 +1,26 @@
+body {
+    background-color: palegreen;
+        display: flex;
+    flex-direction: column;
+}
+h1{
+    text-align: center;
+}
+#fieldsetNuevoContacto{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#fieldsetNuevoContacto > div{
+    display: flex;
+    gap: 10px;
+}
+#fieldsetNuevoContacto > div > label{
+    min-width: 60px;
+}
+
+#enviar{
+    align-self: flex-start;
+    min-width: 230px;
+}
