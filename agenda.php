@@ -1,6 +1,23 @@
-<?php session_start(); ?>
+<?php session_start();
+$mensajeError = "";
+if (isset($_POST["vaciar"]) || !isset($_SESSION["agenda"])) {
+    $_SESSION["agenda"] = [];
+}
+if (isset($_POST["enviar"])) {
+    if (trim($_POST["nombre"]) === "") {
+        $mensajeError = "El nombre no puede estar vacío";
+    } else if (trim($_POST["telefono"]) === "" && isset($_SESSION["agenda"][$_POST["nombre"]])) {
+        unset($_SESSION["agenda"][$_POST["nombre"]]);
+    } else if (trim($_POST["telefono"]) === "") {
+        $mensajeError = "El teléfono no puede estar vacío";
+    } else {
+        $_SESSION["agenda"][$_POST["nombre"]] = $_POST["telefono"];
+    }
+}
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -12,30 +29,18 @@
 <body>
     <main>
         <h1>Agenda</h1>
-        <fieldset>
-            <legend>Datos Agenda</legend>
-            <?php
-            if (isset($_POST["vaciar"])) {
-                $_SESSION["agenda"] = [];
-            }
-            if (!isset($_SESSION["agenda"])) {
-                $_SESSION["agenda"] = [];
-                echo "sesion iniciada";
-            }
-            if (isset($_POST["enviar"])) {
-                if (trim($_POST["nombre"]) === "") {
-                    echo "El nombre no puede estar vacío";
-                } else {
-                    $_SESSION["agenda"][$_POST["nombre"]] = $_POST["telefono"];
-                }
-            }
+        <?php
+        if (!empty($_SESSION["agenda"])) {
+            echo '<fieldset>
+            <legend>Datos Agenda</legend>';
 
-            foreach ($_SESSION["agenda"] as $nombre => $cantidad) {
-                echo $nombre, " " . $cantidad . "<br>";
+            foreach ($_SESSION["agenda"] as $nombre => $telefono) {
+                echo $nombre . " " . $telefono . "<br>";
 
             }
-            ?>
-        </fieldset>
+            echo "</fieldset>";
+        }
+        ?>
         <form action="" method="POST" title="Nuevo Contacto" name="nuevoContacto">
             <fieldset id="fieldsetNuevoContacto">
                 <legend>Nuevo Contacto</legend>
@@ -53,12 +58,16 @@
                 </div>
             </fieldset>
         </form>
-        <form action="" method="post">
+        <?php
+        if (!empty($_SESSION["agenda"])) {
+            echo '<form action="" method="post">
             <fieldset>
                 <legend>Vaciar Agenda</legend>
                 <input type="submit" value="Vaciar" name="vaciar">
             </fieldset>
-        </form>
+        </form>';
+        }
+        ?>
     </main>
 </body>
 
